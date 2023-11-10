@@ -394,5 +394,5 @@ If you have questions that are not covered here, please check the Magic Leap  2 
 
 
 # Copyright
-Copyright (c) (2023) Magic Leap, Inc. All Rights Reserved. Use of this file is governed by the Developer Agreement, located here: https://id.magicleap.com/terms/developer
+Copyright (c) (2023) Magic Leap, Inc. All Rights Reserved. Use of this file is governed by the Developer Agreement, located here: https://www.magicleap.com/software-license-agreement-ml2 
 
