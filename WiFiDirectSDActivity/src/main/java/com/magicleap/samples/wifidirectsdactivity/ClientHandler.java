@@ -98,8 +98,9 @@ public class ClientHandler implements Runnable {
                                 activity.OnIncomingCmd(finalMessage);
                             }
                         });
-                        //broadcast message
-                        mServer.broadcastMessage(finalMessage, this);
+                        // broadcast message
+                        mServer.broadcastMessage( messageFromClient, this);
+                        //mServer.broadcastMessage( finalMessage, this);
 
                     } else if (messageFromClient.startsWith(String.valueOf(WDPluginActivity.MsgTypes.CHATT))) {
                         //show the command to the Host
@@ -112,7 +113,8 @@ public class ClientHandler implements Runnable {
                             }
                         });
                         //broadcast message
-                        mServer.broadcastMessage(finalMessage, this);
+                        mServer.broadcastMessage(messageFromClient, this);
+                        //mServer.broadcastMessage(finalMessage, this);
 
                     } else {
                         //show the message to the Host
