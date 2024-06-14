@@ -32,6 +32,8 @@ However, it is not necessary to modify or even build this code if your only inte
 that you can include in your Unity project and begin using right away.<br>
 (See below for details on how to [include in your Unity project](#Using-the-Plug-in-in-a-Unity-project), and for this Unity plug-in's [APIs](#Plug-in-APIs))
 
+>📝NOTE: This plug-in extends the `UnityPlayerActivity` class and contains Unity Editor version specific copies of `UnityPlayerActivity.java` and `classes.jar` files from Unity version: `2022.3.6f1`. To use this plug-in in other versions of Unity you may need to clone this project, replace those two files, and rebuild the AAR file to include in your Unity project. (See below for pointers on [rebuilding plug-in for other versions of Unity](#Rebuilding-Plug-in-for-other-versions-of-Unity))   
+
 For those that are interested in working with the plug-in code, after cloning this respository to your local machine, open the project folder in Android Studio or the Android code editor of your choosing.
 
 The `WiFiDirectSDActivity` module contains the source code for a basic Unity Plug-in with peer-to-peer support leveraging Android's flavor of WiFi Direct Service Discovery and a simple implementation of Java Sockets. 
@@ -385,8 +387,43 @@ Updated as a result of:
 >Refer to the `Magic Leap Dev Sample`: WiFi-Direct-Share-Experience-Sample App for an example of one comma-delieted approach to sharing a number of common user interactions between devices.
 --- 
 
+## Rebuilding Plug-in for other versions of Unity
 
+This plug-in extends the `UnityPlayerActivity` class and contains Unity Editor version specific copies of `UnityPlayerActivity.java` and `classes.jar` files from Unity version: `2022.3.6f1`. 
+To use this plug-in from within projects based on other versions of Unity you may need to clone this project, replace those two files, and rebuild the AAR file to include in your Unity project.
 
+The two files that need to be replaced in the WiFiDirectSDActivity library of the project are:
+```
+WiFiDirectSDActivity/src/main/java/com/magicleap/samples/wifidirectsdactivity/UnityPlayerActivity.java
+```
+```
+WiFiDirectSDActivity/libs/classes.jar
+```
+They should be replaced with copies from your local installation of the Unity Editor that you are targeting. 
+On Windows installations the files are typically found under:
+
+```
+UnityPlayerActivity.java in
+ C:\Program Files\Unity\Hub\Editor\[specific version number]\Editor\Data\PlaybackEngines\AndroidPlayer\Source\com\unity3d\player  
+```
+
+```
+classes.jar in
+C:\Program Files\Unity\Hub\Editor\[specific version number]\Editor\Data\PlaybackEngines\AndroidPlayer\Variations\il2cpp\Release\Classes  
+```
+
+After replacing those two files, edit the first line of `UnityPlayerActivity.java` file to change the package name from 
+```diff
+-package com.unity3d.player;
+```
+and replace it with
+```diff
++package com.magicleap.samples.wifidirectsdactivity;
+```
+
+Build the ARR file by first selecting the module in the `Project` pane, and then selecting the `Make Module 'WiFiDirectPluginHarness.WiFiDirectSDActivity'` from the `Build` menu. The ARR file will get generated in the output folder `\WiFiDirectSDActivity\build\outputs\aar`.
+
+Use this newly created version specific version of the AAR file in your Unity project of the same version by placing it in the `Assets|Plugins|Android` as described in the above section [Using the Plug-in in a Unity project](#Using-the-Plug-in-in-a-Unity-project).
 
 ## Forums
 If you have questions that are not covered here, please check the Magic Leap  2 Developer Forum: https://forum.magicleap.cloud/
